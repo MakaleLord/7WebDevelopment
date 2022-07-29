@@ -1,0 +1,71 @@
+<html>
+
+<head>
+  <title>Video Player</title>
+  <link rel='stylesheet' type='text/css' href='style.css'>
+  <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Press+Start+2P|Roboto+Condensed&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+  <h1 id="video-title">Super Mario Bros</h1>
+  
+  <div class='gaming'>
+    <img src='gamemachine.png' class='arcade'>
+    <video src="stage1-1.mp4" autoplay></video>
+    <progress max="100"></progress>
+    <div class="options">
+      <h3>Do You Remember?</h3>
+      <iframe width="350" height="200" src="https://www.youtube.com/embed/3B4pNK5g8UQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    
+      <h3>Mario Level</h3>
+      <button class="video-control" id="11">Stage 1 - 1</button>
+      <button class="video-control" id="12">Stage 1 - 2</button>
+      <button class="video-control" id="41">Stage 4 - 1</button>
+    </div>
+  </div>
+
+  <script>
+    
+    function progress(){
+      var myVideo = $('video')[0];
+      var time = myVideo.currentTime;
+      var duration = myVideo.duration;
+      var percentage = (time/duration)*100;
+      var progress = Math.round(percentage);
+      $('progress').val(progress);
+    }
+    $('video').on('timeupdate',progress);
+    
+    function playPause() {
+      var myVideo = $('video')[0];
+      
+      if (myVideo.paused) {
+        myVideo.play();
+      } else {
+        myVideo.pause();
+      }
+    }
+
+    $('video').click(playPause);
+    
+    function changeVideo(eventObj) {
+      var clicked = eventObj.currentTarget;
+      $('video')[0].play();
+      var id = $(clicked).attr('id');
+      if(id == '12') {
+        $('video').attr('src', 'stage1-2.mp4');
+      } else if (id == '41') {
+        $('video').attr('src', 'stage4-1.mp4');
+      } else if (id == '11') {
+        $('video').attr('src', 'stage1-1.mp4');
+      }
+    }
+    $('.video-control').click(changeVideo);
+
+  </script>
+</body>
+
+</html>
+<script type="application/javascript" src="/share.js"></script>
